@@ -1,7 +1,7 @@
 import jdk.jshell.spi.ExecutionControl;
 
 import java.lang.reflect.Array;
-import java.lang.reflect.ParameterizedType;
+// import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 
 public class DynamicArray <T> {
@@ -56,10 +56,18 @@ public class DynamicArray <T> {
 		return ix;
 	}
 	
+	public void extend (int len) {
+		internal = Arrays.copyOf(internal, internal.length + len);
+	}
+	
+	public void extend () {
+		extend(1);
+	}
+	
 	public void push (T val) {
 		int last = lastIndex();
 		if (last == sysLength()) {
-			internal = Arrays.copyOf(internal, internal.length + 1);
+			extend();
 		}
 		last++;
 		set(last, val);
@@ -94,11 +102,24 @@ public class DynamicArray <T> {
 		return shift(0);
 	}
 	
-	public void volatileUnshift () throws ExecutionControl.NotImplementedException {
-		throw new ExecutionControl.NotImplementedException("this method does not do anything yet stupid");
+	public void volatileUnshift (int index) {
+		for (int pt = sysLength(); pt > index ; pt--) {
+			internal[pt] = internal[pt - 1];
+		}
+		internal[index] = null;
 	}
 	
-	public void unshift (T val) throws ExecutionControl.NotImplementedException {
-		throw new ExecutionControl.NotImplementedException("this method does not do anything yet stupid");
+	public void volatileUnshift () {
+		volatileUnshift(0);
+	}
+	
+	public void unshift (T val, int index) {
+		extend();
+		volatileUnshift(index);
+		internal[index] = val;
+	}
+	
+	public void unshift (T val) {
+		unshift(val, 0);
 	}
 }
