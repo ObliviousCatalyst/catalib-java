@@ -1,3 +1,5 @@
+import jdk.jshell.spi.ExecutionControl;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
@@ -7,9 +9,10 @@ public class DynamicArray <T> {
 	public final Class<T> type;
 	
 	@SuppressWarnings("unchecked")
-	public DynamicArray (int size) {
-		ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
-		type = (Class<T>) superClass.getActualTypeArguments()[0];
+	public DynamicArray (Class<T> ty,int size) {
+//		ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
+//		type = (Class<T>) superClass.getActualTypeArguments()[0];
+		type = ty;
 		internal = (T[]) Array.newInstance(type,size);
 	}
 	
@@ -91,11 +94,11 @@ public class DynamicArray <T> {
 		return shift(0);
 	}
 	
-	public void volatileUnshift () {
-	
+	public void volatileUnshift () throws ExecutionControl.NotImplementedException {
+		throw new ExecutionControl.NotImplementedException("this method does not do anything yet stupid");
 	}
 	
-	public void unshift (T val) {
-	
+	public void unshift (T val) throws ExecutionControl.NotImplementedException {
+		throw new ExecutionControl.NotImplementedException("this method does not do anything yet stupid");
 	}
 }
