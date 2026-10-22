@@ -1,10 +1,31 @@
-import jdk.jshell.spi.ExecutionControl;
+// import jdk.jshell.spi.ExecutionControl;
 
 import java.lang.reflect.Array;
 // import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 
 public class DynamicArray <T> {
+	public static final class templates {
+		public static DynamicArray <Integer> integer (int size) {
+			return new DynamicArray<>(Integer.class, size);
+		}
+		
+		public static DynamicArray <Float> floatingPoint (int size) {
+			return new DynamicArray<>(Float.class, size);
+		}
+		
+		public static DynamicArray <Boolean> booleanObj (int size) {
+			return new DynamicArray<>(Boolean.class, size);
+		}
+		
+		public static DynamicArray <String> string (int size) {
+			return new DynamicArray<>(String.class, size);
+		}
+		
+		public static DynamicArray <Character> character (int size) {
+			return new DynamicArray<>(Character.class, size);
+		}
+	}
 	private T[] internal;
 	public final Class<T> type;
 	
