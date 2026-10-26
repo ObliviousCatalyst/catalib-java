@@ -1,3 +1,6 @@
+// DynamicArray.java v1.0.0
+// from catalib v1.0.0
+
 // import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Array;
 import java.util.Arrays;
